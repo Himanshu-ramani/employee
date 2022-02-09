@@ -3,27 +3,29 @@ import Form from '../Form/Form';
 import TableExpand from '../TableExpand/TableExpand';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import TableRow from './TableRow';
-import {FormState} from '../../App'
-import { useDispatch } from "react-redux";
+// import {FormState} from '../../App'
+import { useSelector,useDispatch} from "react-redux";
 
-function TableData({data}) {
-  const formState = useContext(FormState)
+function TableData(props) {
+
+  const {data} = props
   const dispatch = useDispatch()
-  const [employee, setEmployee] = useState(data);
-  useEffect(() => {
-    setEmployee(data);
-  }, [formState,data]);
 
+  const state = useSelector((state)=>state)
+  const [employee, setEmployee] = useState(data);
+    useEffect(() => {
+    setEmployee(data);
+  }, [state,data]);
+  console.log(employee);
   const [viewID, setviewID] = useState(null);
   const expandHnadler = (event, obj) => {
     setviewID(obj.id);
   };
   const [updateFormState, setUpdateFormState] = useState(null)
   const updateFormHandler = (event, objId) =>{
-   event.stopPropagation()
+  //  event.stopPropagation()
     setUpdateFormState(objId)
     setviewID(null);
-    console.log("hi");
   }
   const closeUpdateForm = () =>{
     setUpdateFormState(null)
@@ -36,14 +38,14 @@ function TableData({data}) {
  
   const localStorageData = JSON.parse(localStorage.getItem("employee"));
   console.log(localStorageData);
-        const newArray = data.filter((elem) => {
+        const newArray = localStorageData.filter((elem) => {
           return elem.id !== curid;
         });
         localStorage.setItem("employee", JSON.stringify(newArray));
-
         setEmployee(newArray)
-        dispatch({ type: 'DELETE', payload:{ update: newArray } })
+        dispatch({ type: 'DELETE', payload: newArray  })
   }
+  ///multiple Select 
 
 
   return(<Fragment>

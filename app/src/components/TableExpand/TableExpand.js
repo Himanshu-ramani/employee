@@ -3,6 +3,7 @@ import classes from './TableExpand.module.css'
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function TableExpand({obj,hideExpand}) {
+
   return  <tr>
   <td colSpan="6">
     <div className={classes.head}>
@@ -10,8 +11,8 @@ function TableExpand({obj,hideExpand}) {
    {obj.firstName} {obj.lastName}
       </h2>
       <div>
-        <button  >
-          <FontAwesomeIcon icon={faArrowUp} onClick={hideExpand} /> up
+        <button onClick={hideExpand}   >
+          <FontAwesomeIcon icon={faArrowUp} /> up
         </button>
       </div>
     </div>

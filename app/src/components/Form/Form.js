@@ -86,6 +86,7 @@ const Form = (props) => {
         email: emailvalue,
         address: addressvalue,
         id: Math.random(),
+        select:false,
       };
       update.unshift(resdata)
       localStorage.setItem("employee", JSON.stringify(update));

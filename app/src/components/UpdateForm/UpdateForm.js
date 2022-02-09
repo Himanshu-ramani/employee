@@ -54,7 +54,7 @@ const addressChangeHandler = (e) =>{
     );
     console.log(newDataArray);
     localStorage.setItem("employee", JSON.stringify(newDataArray));
-    dispatch({ type: 'EDIT', payload:{ update: newDataArray } })
+    dispatch({ type: 'EDIT', payload:newDataArray })
     closeUpdateForm()
   };
   // const firstnameClasses = firstNameHasError
@@ -74,6 +74,7 @@ const addressChangeHandler = (e) =>{
   //   : "form-control";
   return (
     <Fragment>
+      <tr>
  <td colSpan="6">
      <div className="overlay"></div>
       <form onSubmit={submitHandler} className="form">
@@ -146,6 +147,7 @@ const addressChangeHandler = (e) =>{
         </div>
       </form>
       </td>
+      </tr>
     </Fragment>
   );
 };

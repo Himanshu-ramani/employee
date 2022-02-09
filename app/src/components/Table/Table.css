@@ -6,7 +6,32 @@
     /* width: 20%; */
 
 }
+.last{
+    text-align:center;
+}
 .table{
     width: 100%;
     border-collapse:collapse;
+}
+.pagination td{
+    padding: 0;
+}
+.pagination_container{
+    list-style: none;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+.pagination_container a{
+    padding: 3px 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.pagination_Active a{
+    background: rgba(128, 128, 128, 0.26);
+}
+.Pervious{
+    text-decoration: none;
 }

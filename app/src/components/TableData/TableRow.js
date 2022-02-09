@@ -10,9 +10,8 @@ const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler}) => {
   <td>{obj.firstName}</td>
   <td>{obj.lastName}</td>
   <td>{obj.age}</td>
-  <td>{obj.number}</td>
   <td>{obj.email}</td>
-  <td> <FontAwesomeIcon icon={faPencil} onClick={(event) => updateFormHandler(event, obj.id)}  /> <FontAwesomeIcon icon={faTrash} onClick={(event) => deleteData(event, obj.id)}/> </td>
+  <td className='last'> <FontAwesomeIcon icon={faPencil} onClick={(event) => updateFormHandler(event, obj.id)}  /> <FontAwesomeIcon icon={faTrash} onClick={(event) => deleteData(event, obj.id)}/> </td>
 </tr>;
 };
 
