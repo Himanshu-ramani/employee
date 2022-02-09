@@ -1,9 +1,7 @@
-import React,{Fragment, useState,useContext,useEffect} from 'react';
-import Form from '../Form/Form';
+import React,{Fragment, useState,useEffect} from 'react';
 import TableExpand from '../TableExpand/TableExpand';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import TableRow from './TableRow';
-// import {FormState} from '../../App'
 import { useSelector,useDispatch} from "react-redux";
 
 function TableData(props) {

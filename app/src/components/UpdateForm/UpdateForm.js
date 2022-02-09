@@ -1,5 +1,4 @@
-import React, { Fragment, useState,useEffect } from "react";
-import useInput from "../../hook/input_hook";
+import React, { Fragment, useState,} from "react";
 import "./UpdateForm.css";
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";

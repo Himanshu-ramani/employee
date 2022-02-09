@@ -1,4 +1,4 @@
-import React, { useState, Fargment } from "react";
+import React, { useState,} from "react";
 import "./Nav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +25,7 @@ const Nav = (props) => {
       ) : (
         <div>
           <FontAwesomeIcon icon={faSearch} />
-          <input type="text" onChange={searchValue} />
+          <input type="text" onChange={searchValue} value={search} />
           <FontAwesomeIcon icon={faTimes} onClick={searchHanlder} />
         </div>
       )}

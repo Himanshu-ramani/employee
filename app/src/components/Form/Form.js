@@ -70,7 +70,7 @@ const Form = (props) => {
       formIsValid = true;
     }
   
-    const [reEntry, setReEntry] = useState(false);
+  
     const [update, setUpdate] = useState(employee);
     const dispatch = useDispatch()
     const submitHandler = (event) => {
@@ -190,7 +190,7 @@ const Form = (props) => {
           <div>
             <div>
               
-              {reEntry && (
+              {false && (
                 <p className="error-text"> Data is already There! </p>
               )}
             </div>
