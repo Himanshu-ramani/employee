@@ -6,7 +6,7 @@ const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler}) => {
 
 
   return  <tr key={obj.id} onClick={(event) => expandHnadler(event, obj)}>
-  <td><input type='checkbox' /></td>
+  <td><input type='checkbox' value={obj.select} /></td>
   <td>{obj.firstName}</td>
   <td>{obj.lastName}</td>
   <td>{obj.age}</td>
