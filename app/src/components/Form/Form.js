@@ -3,12 +3,10 @@ import React,{useState} from 'react'
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
 import "./Form.css"
-const fetchdata= JSON.parse(localStorage.getItem("employee"));
 const Form = (props) => {
+  const fetchdata= JSON.parse(localStorage.getItem("employee"));
     const employee = fetchdata === null ? [] : fetchdata
-  
 
-      
     const {
       value: firstNamevalue,
       isValid: firstNameIsValid,

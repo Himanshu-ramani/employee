@@ -4,17 +4,20 @@ import Form from './components/Form/Form';
 import Nav from './components/Nav/Nav';
 import Table from './components/Table/Table';
 import {createContext} from 'react';
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 export const FormState = createContext()
 function App() {
   const localStorageData = JSON.parse(localStorage.getItem("employee"));
   const employee = localStorageData === null ? [] : localStorageData
+  const state = useSelector((state)=>state)
+ 
   const [employeeData, setEmployeeData] = useState(employee)
   const [showFrom , SetShowFrom] = useState(false)
 
 useEffect(() => {
   setEmployeeData(localStorageData)
-}, [showFrom])
+  console.log(employeeData);
+}, [showFrom ,state.idArray ])
 
 const showFormHandler=() =>{
   SetShowFrom(pre =>!pre)
@@ -36,7 +39,7 @@ const [newEmploye ,setNewEmployee] =useState([])
     } 
   }
   const finalDataArray = searchTerm !== '' ? newEmploye : employeeData
-  console.log(finalDataArray);
+
 
   return (<div>
     <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />

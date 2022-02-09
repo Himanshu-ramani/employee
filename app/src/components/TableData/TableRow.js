@@ -2,7 +2,7 @@ import React,{Fragment,useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-const TableRow = ({obj , expandHnadler,deleteData}) => {
+const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler}) => {
 
 
   return  <tr key={obj.id} onClick={(event) => expandHnadler(event, obj)}>
@@ -12,7 +12,7 @@ const TableRow = ({obj , expandHnadler,deleteData}) => {
   <td>{obj.age}</td>
   <td>{obj.number}</td>
   <td>{obj.email}</td>
-  <td> <FontAwesomeIcon icon={faPencil} /> <FontAwesomeIcon icon={faTrash} onClick={(event) => deleteData(event, obj.id)}/> </td>
+  <td> <FontAwesomeIcon icon={faPencil} onClick={(event) => updateFormHandler(event, obj.id)}  /> <FontAwesomeIcon icon={faTrash} onClick={(event) => deleteData(event, obj.id)}/> </td>
 </tr>;
 };
 

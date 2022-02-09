@@ -1,14 +1,16 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useContext} from "react";
 import TableData from "../TableData/TableData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import "./Table.css";
+
 const Table = ({ data }) => {
     const [tableData, setTableData] = useState(data);
+
     useEffect(() => {
 setTableData(data)
-    }, [data]);
+    }, [data,]);
   
     console.log(data);
 

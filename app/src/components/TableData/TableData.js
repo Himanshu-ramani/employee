@@ -4,42 +4,53 @@ import TableExpand from '../TableExpand/TableExpand';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import TableRow from './TableRow';
 import {FormState} from '../../App'
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function TableData({data}) {
   const formState = useContext(FormState)
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [employee, setEmployee] = useState(data);
   useEffect(() => {
     setEmployee(data);
   }, [formState,data]);
-  console.log(formState);
+
   const [viewID, setviewID] = useState(null);
   const expandHnadler = (event, obj) => {
     setviewID(obj.id);
   };
+  const [updateFormState, setUpdateFormState] = useState(null)
+  const updateFormHandler = (event, objId) =>{
+   event.stopPropagation()
+    setUpdateFormState(objId)
+    setviewID(null);
+    console.log("hi");
+  }
+  const closeUpdateForm = () =>{
+    setUpdateFormState(null)
+  }
   const hideExpand = () =>{
     setviewID(null)
   }
   //delete function
     const deleteData = (event, curid) => {
-        // event.stopPropagation()
+ 
   const localStorageData = JSON.parse(localStorage.getItem("employee"));
-        const newArray = localStorageData.filter((elem) => {
+  console.log(localStorageData);
+        const newArray = data.filter((elem) => {
           return elem.id !== curid;
         });
         localStorage.setItem("employee", JSON.stringify(newArray));
-        console.log(newArray);
+
         setEmployee(newArray)
-        // dispatch({ type: 'DELETE', payload:{ update: newArray } })
+        dispatch({ type: 'DELETE', payload:{ update: newArray } })
   }
 
 
   return(<Fragment>
     {employee.map(obj =><Fragment key={obj.id} >
-    <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} />
-   {/* {viewID === obj.id && <TableExpand obj={obj} hideExpand={hideExpand}/>} */}
-   {/* {viewID === obj.id && <UpdateForm obj={obj}/>} */}
+    <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} />
+   {viewID === obj.id && <TableExpand obj={obj} hideExpand={hideExpand}/>}
+   {updateFormState === obj.id && <UpdateForm obj={obj} closeUpdateForm={closeUpdateForm}/>}
     </Fragment>)
     }
 
