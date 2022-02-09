@@ -21,7 +21,7 @@ const Nav = (props) => {
   return (
     <nav className="nav">
       {isSearch === false ? (
-        <h3>Employee</h3>
+        <h3>EmployeeList</h3>
       ) : (
         <div>
           <FontAwesomeIcon icon={faSearch} />

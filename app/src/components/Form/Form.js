@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
 import "./Form.css"
+import { useDispatch } from "react-redux";
 const Form = (props) => {
   const fetchdata= JSON.parse(localStorage.getItem("employee"));
     const employee = fetchdata === null ? [] : fetchdata
@@ -71,7 +72,7 @@ const Form = (props) => {
   
     const [reEntry, setReEntry] = useState(false);
     const [update, setUpdate] = useState(employee);
-  
+    const dispatch = useDispatch()
     const submitHandler = (event) => {
       event.preventDefault();
       if (!formIsValid) {
@@ -88,7 +89,7 @@ const Form = (props) => {
       };
       update.unshift(resdata)
       localStorage.setItem("employee", JSON.stringify(update));
-  
+      dispatch({ type: 'ADD', payload: update  })
 
       resetFirstName();
       resetlastName();

@@ -6,47 +6,31 @@ import Table from './components/Table/Table';
 import {createContext} from 'react';
 import { useSelector } from "react-redux";
 export const FormState = createContext()
+export const SearchTerm = createContext()
 function App() {
-  const localStorageData = JSON.parse(localStorage.getItem("employee"));
-  const employee = localStorageData === null ? [] : localStorageData
-  const state = useSelector((state)=>state)
- 
-  const [employeeData, setEmployeeData] = useState(employee)
+
   const [showFrom , SetShowFrom] = useState(false)
 
-useEffect(() => {
-  setEmployeeData(localStorageData)
-  console.log(employeeData);
-}, [showFrom ,state.idArray ])
 
 const showFormHandler=() =>{
   SetShowFrom(pre =>!pre)
 }
 //serach function
-
-const [searchTerm ,setSearchTerm] = useState("")
 const [newEmploye ,setNewEmployee] =useState([])
+const [searchTerm ,setSearchTerm] = useState("")
   const getSearchTerm = (search) => {
     setSearchTerm(search);
-    if (search !== "") {
-      const newData = employeeData.filter((employe) => {
-        return Object.values(employe)
-          .join("")
-          .toLowerCase()
-          .includes(search.toLowerCase());
-      });
-      setNewEmployee(newData)
-    } 
+
   }
-  const finalDataArray = searchTerm !== '' ? newEmploye : employeeData
+
 
 
   return (<div>
     <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />
    {showFrom && <Form showFormHandler={showFormHandler} />}
-   <FormState.Provider value={showFrom} >
-   <Table  data={finalDataArray}/>
-   </FormState.Provider>
+   <SearchTerm.Provider value={searchTerm}>
+   <Table/>
+   </SearchTerm.Provider>
     </div>
   
 
