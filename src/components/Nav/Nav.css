@@ -1,0 +1,19 @@
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:  0 30px;
+}
+.nav ul{
+    display: flex;
+    align-items: center; 
+    list-style: none;
+}
+.nav ul li{
+    margin: 20px;
+}
+.nav input {
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid black;
+}

@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+import React,{ useState,} from 'react';
 import './App.css';
-
+import Form from './components/Form/Form';
+import Nav from './components/Nav/Nav';
+import Table from './components/Table/Table';
+import {createContext} from 'react';
+export const FormState = createContext()
+export const SearchTerm = createContext()
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const [showFrom , SetShowFrom] = useState(false)
+
+
+const showFormHandler=() =>{
+  SetShowFrom(pre =>!pre)
+}
+//serach function
+
+const [searchTerm ,setSearchTerm] = useState("")
+  const getSearchTerm = (search) => {
+    setSearchTerm(search);
+
+  }
+
+
+
+  return (<div>
+    <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />
+   {showFrom && <Form showFormHandler={showFormHandler} />}
+   <SearchTerm.Provider value={searchTerm}>
+   <Table/>
+   </SearchTerm.Provider>
     </div>
+  
+
   );
 }
 
