@@ -6,8 +6,8 @@
     /* width: 20%; */
 
 }
-.last{
-    text-align:center;
+.last > *{
+    padding:  0 20px;
 }
 .table{
     width: 100%;

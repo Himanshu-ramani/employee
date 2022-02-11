@@ -44,11 +44,28 @@ function TableData(props) {
         dispatch({ type: 'DELETE', payload: newArray  })
   }
   ///multiple Select 
-
+  const checkedHandler =(event,data) =>{
+    const {name,checked} = event.target
+    console.log(checked);
+    console.log(name);
+    const checkArray = employee.map(ele => {
+      console.log(ele.id);
+      if (ele.id === data.id) {
+        console.log(ele);
+        return {...ele, select: checked }
+      }
+      return ele
+    }
+      )
+      console.log(checkArray);
+    localStorage.setItem("employee", JSON.stringify(checkArray));
+    setEmployee(checkArray)
+    dispatch({ type: 'DELETE', payload: checkArray  })
+  }
 
   return(<Fragment>
     {employee.map(obj =><Fragment key={obj.id} >
-    <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} />
+    <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} checkedHandler={checkedHandler} />
    {viewID === obj.id && <TableExpand obj={obj} hideExpand={hideExpand}/>}
    {updateFormState === obj.id && <UpdateForm obj={obj} closeUpdateForm={closeUpdateForm}/>}
     </Fragment>)

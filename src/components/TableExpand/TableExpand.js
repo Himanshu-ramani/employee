@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './TableExpand.module.css'
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-function TableExpand({obj,hideExpand}) {
+function TableExpand({obj,hideExpand,}) {
 
   return  <tr>
   <td colSpan="6">

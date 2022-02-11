@@ -2,11 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler}) => {
+const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler,checkedHandler}) => {
 
 
+const onCheck =(event) =>{
+  event.stopPropagation()
+}
   return  <tr key={obj.id} onClick={(event) => expandHnadler(event, obj)}>
-  <td><input type='checkbox' value={obj.select} /></td>
+  <td onClick={onCheck}><input type='checkbox'name={obj.id} checked={obj.select} onChange={(event)=>checkedHandler(event,obj)} /></td>
   <td>{obj.firstName}</td>
   <td>{obj.lastName}</td>
   <td>{obj.age}</td>
