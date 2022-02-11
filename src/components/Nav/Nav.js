@@ -5,6 +5,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch} from "react-redux";
 const Nav = (props) => {
   const [search, setSearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
@@ -18,26 +19,19 @@ const Nav = (props) => {
     setSearch(event.target.value);
     props.getSearchTerm(event.target.value);
   };
+  const dispatch = useDispatch()
+  
 const mutliDelete = () =>{
-//   const localStorageData =JSON.parse(localStorage.getItem("employeeData"))  
-//   const fetchdata = localStorageData === null ? [] : localStorageData
-
-// for (const id of state.idArray.checkedArray) {
-//   const newData =JSON.parse(localStorage.getItem("employeeData"))  
-//   const newArray = newData.filter((elem) => {
-//     return elem.id !== id;
-//   });
-//   localStorage.setItem("employeeData", JSON.stringify(newArray));
-// }
   const localStorageData =JSON.parse(localStorage.getItem("employee"))  
   const fetchdata = localStorageData === null ? [] : localStorageData
-  for (const obj of fetchdata ) {
-    // if (obj.select === true) {
-      
-    // }
-  }
+  const newArray = fetchdata.filter(ele =>{
+    return ele.select === false
+  })
+  localStorage.setItem("employee", JSON.stringify(newArray));
+  dispatch({ type: 'DELETE', payload: newArray  })
 
 }
+
   return (
     <nav className="nav">
       {isSearch === false ? (
@@ -58,7 +52,7 @@ const mutliDelete = () =>{
           <FontAwesomeIcon icon={faAdd} onClick={props.showFormHandler} />
         </li>
         <li>
-          <FontAwesomeIcon icon={faTrash} onClick={mutliDelete} />{1}
+          <FontAwesomeIcon icon={faTrash} onClick={mutliDelete} />
         </li>
       </ul>
     </nav>

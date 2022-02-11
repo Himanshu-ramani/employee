@@ -14,7 +14,7 @@ function TableData(props) {
     useEffect(() => {
     setEmployee(data);
   }, [state,data]);
-  console.log(employee);
+  // console.log(employee);
   const [viewID, setviewID] = useState(null);
   const expandHnadler = (event, obj) => {
     setviewID(obj.id);
@@ -33,7 +33,6 @@ function TableData(props) {
   }
   //delete function
     const deleteData = (event, curid) => {
- 
   const localStorageData = JSON.parse(localStorage.getItem("employee"));
   console.log(localStorageData);
         const newArray = localStorageData.filter((elem) => {
@@ -45,13 +44,9 @@ function TableData(props) {
   }
   ///multiple Select 
   const checkedHandler =(event,data) =>{
-    const {name,checked} = event.target
-    console.log(checked);
-    console.log(name);
+    const {checked} = event.target
     const checkArray = employee.map(ele => {
-      console.log(ele.id);
       if (ele.id === data.id) {
-        console.log(ele);
         return {...ele, select: checked }
       }
       return ele
@@ -60,9 +55,9 @@ function TableData(props) {
       console.log(checkArray);
     localStorage.setItem("employee", JSON.stringify(checkArray));
     setEmployee(checkArray)
-    dispatch({ type: 'DELETE', payload: checkArray  })
+    dispatch({ type: 'CHECK', payload: checkArray  })
   }
-
+console.log("table-Data");
   return(<Fragment>
     {employee.map(obj =><Fragment key={obj.id} >
     <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} checkedHandler={checkedHandler} />

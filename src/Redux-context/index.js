@@ -16,6 +16,16 @@ const gobalSateEmployee = (state = {idArray :[]},action) =>{
             idArray:action.payload
         })
     }
+    if(action.type === 'CHECK'){
+        return({
+            idArray:action.payload
+        })
+    }
+    if (action.type === 'SELECTALL') {
+        return({
+            idArray:action.payload
+        })
+    }
     return state
 }
 

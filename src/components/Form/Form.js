@@ -98,6 +98,7 @@ const Form = (props) => {
       resetnumber();
       resetemail();
       resetaddress();
+      props.showFormHandler()
     };
     const firstnameClasses = firstNameHasError
       ? "form-control invalid"

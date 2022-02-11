@@ -5,14 +5,16 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import "./Table.css";
 import ReactPaginate from "react-paginate";
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { SearchTerm } from "../../App";
+
+
 const Table = () => {
-      const localStorageData = JSON.parse(localStorage.getItem("employee"));
+  const localStorageData = JSON.parse(localStorage.getItem("employee"));
   const employee = localStorageData === null ? [] : localStorageData
     const [tableData, setTableData] = useState(employee);
     const state = useSelector((state)=>state)
-
+  const dispatch = useDispatch()
     useEffect(() => {
 setTableData(employee)
     }, [state]);
@@ -55,20 +57,37 @@ const searchTerm = useContext(SearchTerm)
 console.log(tableData);
     ///pagination
 const [pageNumber , setPageNumber] =useState(0)
+const [showEmployee , setShowEmployee] = useState([])
 const employeePerPage = 5
 const pageVisited = pageNumber * employeePerPage
 const displayEmployee = tableData.slice(pageVisited ,  pageVisited + employeePerPage)
 const pageCount =Math.ceil(tableData.length / employeePerPage)
+useEffect(() => {
+  setShowEmployee(displayEmployee)
+}, [tableData])
+
+
 const onPageChange=({selected}) =>{
 
   setPageNumber(selected)
 }
+  // select All
+  const selectAll =() =>{
+   const selcted = displayEmployee.map(ele => {
+      return { ...ele, select : true}
+    })
+    localStorage.setItem("employee", JSON.stringify(selcted));
+
+    dispatch({ type: 'CHECK', payload: selcted  })
+
+  }
+
   return (
     <table className="table">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" />
+            <input type="checkbox" onChange={selectAll} />
           </th>
           <th onClick={() => sorting("firstName")}>First Name {icon === true ?<FontAwesomeIcon icon={faArrowDown} /> : <FontAwesomeIcon icon={faArrowUp} /> }</th>
             <th onClick={() => sorting("lastName")}>Last Name</th>
