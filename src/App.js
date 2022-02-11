@@ -21,9 +21,6 @@ const [searchTerm ,setSearchTerm] = useState("")
     setSearchTerm(search);
 
   }
-
-
-
   return (<div>
     <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />
    {showFrom && <Form showFormHandler={showFormHandler} />}

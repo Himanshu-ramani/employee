@@ -54,7 +54,7 @@ const searchTerm = useContext(SearchTerm)
         setOreder("ASC");
       }
     };
-console.log(tableData);
+
     ///pagination
 const [pageNumber , setPageNumber] =useState(0)
 const [showEmployee , setShowEmployee] = useState([])
@@ -77,10 +77,9 @@ const onPageChange=({selected}) =>{
       return { ...ele, select : true}
     })
     localStorage.setItem("employee", JSON.stringify(selcted));
-
     dispatch({ type: 'CHECK', payload: selcted  })
-
   }
+  console.log("table");
 
   return (
     <table className="table">
