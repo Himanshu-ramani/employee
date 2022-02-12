@@ -10,7 +10,7 @@ function TableData(props) {
   const dispatch = useDispatch()
 
   // const state = useSelector((state)=>state)  
-  const [employee, setEmployee] = useState(data);
+  const [employee, setEmployee] = useState([]);
     useEffect(() => {
     setEmployee(data);
   }, [,data]);
@@ -20,7 +20,6 @@ function TableData(props) {
   };
   const [updateFormState, setUpdateFormState] = useState(null)
   const updateFormHandler = (event, objId) =>{
-  //  event.stopPropagation()
     setUpdateFormState(objId)
     setviewID(null);
   }
@@ -56,7 +55,7 @@ function TableData(props) {
     dispatch({ type: 'CHECK', payload: employee  })
     console.log("action");
   }
-console.log("table-Data");
+// console.log("table-Data");
   return(<Fragment>
     {employee.map(obj =><Fragment key={obj.id} >
     <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} checkedHandler={checkedHandler} />

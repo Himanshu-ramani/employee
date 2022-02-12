@@ -68,7 +68,6 @@ useEffect(() => {
 
 
 const onPageChange=({selected}) =>{
-
   setPageNumber(selected)
 }
   // select All
@@ -76,10 +75,13 @@ const onPageChange=({selected}) =>{
    const selcted = displayEmployee.map(ele => {
       return { ...ele, select : true}
     })
-    localStorage.setItem("employee", JSON.stringify(selcted));
-    dispatch({ type: 'CHECK', payload: selcted  })
+  
+    // const merge = [].push().apply(selcted,employee)
+    // console.log(merge);
+    // localStorage.setItem("employee", JSON.stringify(merge));
+    // dispatch({ type: 'CHECK', payload: selcted  })
   }
-  console.log("table");
+  // console.log("table");
 
   return (
     <table className="table">
