@@ -53,7 +53,6 @@ function TableData(props) {
     localStorage.setItem("employee", JSON.stringify(checkArray));
     setEmployee(checkArray)
     dispatch({ type: 'CHECK', payload: employee  })
-    console.log("action");
   }
 // console.log("table-Data");
   return(<Fragment>

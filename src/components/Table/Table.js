@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from "react";
+import React,{useState,useEffect,useContext,} from "react";
 import TableData from "../TableData/TableData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -71,28 +71,30 @@ const onPageChange=({selected}) =>{
   setPageNumber(selected)
 }
   // select All
-  const selectAll =() =>{
+  const [all, setAll] = useState(false)
+  const selectAll =(event) =>{
+    const {checked} = event.target
+    setAll(checked)
    const selcted = displayEmployee.map(ele => {
-      return { ...ele, select : true}
+      return { ...ele, select : checked}
     })
-  
-    // const merge = [].push().apply(selcted,employee)
-    // console.log(merge);
-    // localStorage.setItem("employee", JSON.stringify(merge));
-    // dispatch({ type: 'CHECK', payload: selcted  })
+    let arr3 = employee.map((item, i) => Object.assign({}, item, selcted[i]));
+    console.log(arr3);
+    localStorage.setItem("employee", JSON.stringify(arr3));
+    dispatch({ type: 'CHECK', payload: selcted  })
   }
-  // console.log("table");
+
 
   return (
     <table className="table">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" onChange={selectAll} />
+            <input type="checkbox" onChange={selectAll} checked={all} />
           </th>
           <th onClick={() => sorting("firstName")}>First Name {icon === true ?<FontAwesomeIcon icon={faArrowDown} /> : <FontAwesomeIcon icon={faArrowUp} /> }</th>
             <th onClick={() => sorting("lastName")}>Last Name</th>
-          <th onClick={() => sorting("lastName")}>Age </th>
+          <th onClick={() => sorting("lastName")}>Date of Birth</th>
           <th>Email</th>
           <th>Update/Delete</th>
         </tr>

@@ -40,7 +40,6 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
     const newDataArray = employee.map(
       (obj) => [isValue].find((o) => o.id === obj.id) || obj
     );
-    console.log(newDataArray);
     localStorage.setItem("employee", JSON.stringify(newDataArray));
     dispatch({ type: "EDIT", payload: newDataArray });
     closeUpdateForm();
@@ -68,7 +67,7 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
             </div>
             <div className={"form-control"}>
               <Input
-                type="number"
+                type="date"
                 onChange={ageChangeHandler}
                 value={isValue.age}
                 placeholder="Age"
