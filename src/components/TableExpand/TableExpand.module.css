@@ -1,7 +1,6 @@
 .expand {
     display: grid;
     grid-template-columns:  1fr 2fr 1fr 2fr;
-    
     text-align: left;
 }
 .expand p {
@@ -27,4 +26,12 @@
     padding: 3PX 5PX;
     margin: 10px;
     color: rgba(0, 0, 0, 0.459);
+}
+@media screen and (max-width: 600px) {
+    .expandContainer{
+        display: none;
+    }
+    .expand{
+        display: none;
+    }
 }

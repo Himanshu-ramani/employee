@@ -17,3 +17,14 @@
     border: 0;
     border-bottom: 1px solid black;
 }
+@media screen and (max-width: 600px) {
+    .nav{
+        padding: 10px;
+    }
+    .nav ul li{
+        margin: 10px;
+    }
+    .nav ul{
+        padding: 0;
+    }
+}

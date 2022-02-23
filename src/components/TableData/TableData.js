@@ -2,7 +2,7 @@ import React,{Fragment, useState,useEffect} from 'react';
 import TableExpand from '../TableExpand/TableExpand';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import TableRow from './TableRow';
-import { useSelector,useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 
 function TableData(props) {
 
@@ -43,7 +43,9 @@ function TableData(props) {
   ///multiple Select 
   const checkedHandler =(event,data) =>{
     const {checked} = event.target
-    const checkArray = employee.map(ele => {
+    const newData = JSON.parse(localStorage.getItem("employee"));
+    const employeeData = newData === null ? [] : newData;
+    const checkArray = employeeData.map(ele => {
       if (ele.id === data.id) {
         return {...ele, select: checked }
       }

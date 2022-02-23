@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function TableExpand({obj,hideExpand,}) {
 
   return  <tr>
-  <td colSpan="6">
+  <td colSpan="6" className={classes.expandContainer}>
     <div className={classes.head}>
       <h2>
    {obj.firstName} {obj.lastName}
