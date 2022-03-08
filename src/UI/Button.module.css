@@ -16,7 +16,7 @@
   font-family: "Amazon Ember",sans-serif;
   font-size: 13px;
   line-height: 29px;
-  padding: 0 10px 0 11px;
+  padding: 0 5px 0 6px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -25,6 +25,7 @@
   touch-action: manipulation;
   vertical-align: middle;
   width: 90px;
+  margin: 10px;
 }
 
 .button:hover {

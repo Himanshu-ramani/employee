@@ -42,7 +42,7 @@ function TableData(props) {
       }
   ///multiple Select 
   const checkedHandler =(event,data) =>{
-    const {checked} = event.target
+    const {checked} = event.target;
     const newData = JSON.parse(localStorage.getItem("employee"));
     const employeeData = newData === null ? [] : newData;
     const checkArray = employeeData.map(ele => {

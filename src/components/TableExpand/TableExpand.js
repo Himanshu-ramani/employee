@@ -21,11 +21,10 @@ function TableExpand({obj,hideExpand,}) {
       <p>{obj.firstName}</p>
       <p className={classes.label}>LAST NAME</p>
       <p>{obj.lastName}</p>
-      <p className={classes.label}>AGE</p> <p>{obj.age}</p>
+      <p className={classes.label}>DATE OF BIRTH</p>
+      <p>{obj.age}</p>
       <p className={classes.label}>NUMBER</p> <p>{obj.number}</p>
       <p className={classes.label}>EMAIL</p> <p>{obj.email}</p>
-      <p className={classes.label}>DATE OF BIRTH</p>
-      <p>{obj.birth}</p>
       <p className={classes.label}>ADDRESS</p>
       <p>{obj.address}</p>
     </div>

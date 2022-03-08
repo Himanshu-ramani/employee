@@ -1,5 +1,5 @@
 import useInput from "../../hook/input_hook";
-import React, { useState } from "react";
+import React from "react";
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
 import "./Form.css";
@@ -70,7 +70,7 @@ const Form = (props) => {
     formIsValid = true;
   }
 
-  const [update, setUpdate] = useState(employee);
+  const update =[...employee]
   const dispatch = useDispatch();
   const submitHandler = (event) => {
     event.preventDefault();
@@ -87,15 +87,6 @@ const Form = (props) => {
       id: Math.random(),
       select: false,
     };
-    const reEntryNumber = employee.filter((obj) => {
-      if (obj.number == resdata.number) {
-        return true;
-      }
-    });
-    if (reEntryNumber === true) {
-      return
-    }
-    
 
     update.unshift(resdata);
     localStorage.setItem("employee", JSON.stringify(update));
