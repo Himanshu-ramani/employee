@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import "./Table.css";
-import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchTerm } from "../../App";
 
@@ -17,6 +16,7 @@ const Table = () => {
   useEffect(() => {
     setTableData(employee);
   }, [state]);
+
   //Search term
   const searchTerm = useContext(SearchTerm);
   useEffect(() => {
@@ -52,43 +52,19 @@ const Table = () => {
       setTableData(sorted);
       setOreder("ASC");
     }
-  };
-
-  ///pagination
-  const [pageNumber, setPageNumber] = useState(0);
-  const [showEmployee, setShowEmployee] = useState([]);
-  const employeePerPage = 5;
-  const pageVisited = pageNumber * employeePerPage;
-  const displayEmployee = tableData.slice(
-    pageVisited,
-    pageVisited + employeePerPage
-  );
-  const pageCount = Math.ceil(tableData.length / employeePerPage);
-  useEffect(() => {
-    setShowEmployee(displayEmployee);
-  }, [tableData]);
-
-  const onPageChange = ({ selected }) => {
-    setPageNumber(selected);
-  };
-  // select All
-  const [all, setAll] = useState(false);
+  };  
   const selectAll = (event) => {
+    dispatch({ type: "SELECTTOGGLE",payload : true})
     const newData = JSON.parse(localStorage.getItem("employee"));
     const employeeData = newData === null ? [] : newData;
     const { checked } = event.target;
-    setAll(checked);
-    const selcted = displayEmployee.map((ele) => {
+    const selcted = tableData.map((ele) => {
       return { ...ele, select: checked };
     });
-
     const newDataArray = employeeData.map(
       (obj) => selcted.find((o) => o.id === obj.id) || obj
     );
     localStorage.setItem("employee", JSON.stringify(newDataArray))
-  
-
-    // localStorage.setItem("employee", JSON.stringify(arr3));
     dispatch({ type: "CHECK", payload: selcted });
   };
 
@@ -97,7 +73,7 @@ const Table = () => {
       <thead>
         <tr>
           <th>
-            <input type="checkbox" onChange={selectAll} checked={all} />
+            <input type="checkbox" onChange={selectAll} checked={state.selectToggle}/>
           </th>
           <th onClick={() => sorting("firstName")}>
             First Name{" "}
@@ -114,19 +90,9 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <TableData data={displayEmployee} />
+        <TableData data={tableData} />
         <tr className="pagination">
           <td colSpan="6">
-            <ReactPaginate
-              previousLabel={"Pervious"}
-              nextLabel={"Next"}
-              pageCount={pageCount}
-              onPageChange={onPageChange}
-              containerClassName={"pagination_container"}
-              previousLinkClassName={"previousBtn"}
-              nextLinkClassName={"nextBtn"}
-              activeClassName={"pagination_Active"}
-            />
           </td>
         </tr>
       </tbody>

@@ -7,6 +7,7 @@ const TableRow = ({obj , expandHnadler,deleteData,updateFormHandler,checkedHandl
 
 const onCheck =(event) =>{
   event.stopPropagation()
+  
 }
   return  <tr key={obj.id} onClick={(event) => expandHnadler(event, obj)}>
   <td data-label="Select" onClick={onCheck}><input type='checkbox'name={obj.id} checked={obj.select} onChange={(event)=>checkedHandler(event,obj)} /></td>

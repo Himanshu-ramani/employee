@@ -1,35 +1,29 @@
-import { createStore } from "redux";
-
-const gobalSateEmployee = (state = {idArray :[]},action) =>{
+import { createStore,combineReducers } from "redux";
+const gobalSateEmployee = (state = [],action) =>{
     if (action.type === 'DELETE') {
-        return({
-            idArray:action.payload
-        })
+        return(state = action.payload)
     }
     if(action.type === "ADD"){
-        return({
-            idArray:action.payload
-        })
+        return(state = action.payload)
     } 
     if(action.type === 'EDIT'){
-        return({
-            idArray:action.payload
-        })
+        return(state = action.payload)
     }
     if(action.type === 'CHECK'){
-        return({
-            idArray:action.payload
-        })
+        return(state = action.payload)
     }
     if (action.type === 'SELECTALL') {
-        return({
-            idArray:action.payload
-        })
+        return(state = action.payload)
     }
     return state
 }
 
-
-const store = createStore(gobalSateEmployee)
+const selectToggle = (state = false,action) =>{
+    if (action.type === 'SELECTTOGGLE') {
+        return( state = action.payload)
+    }
+    return state
+}
+const store = createStore(combineReducers({gobalSateEmployee,selectToggle}))
 
 export default store

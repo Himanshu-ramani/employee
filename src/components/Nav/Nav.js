@@ -9,6 +9,8 @@ import { useDispatch} from "react-redux";
 const Nav = (props) => {
   const [search, setSearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
+ 
+
   const searchHanlder = () => {
     setIsSearch((pre) => !pre);
     setSearch("")
@@ -20,8 +22,9 @@ const Nav = (props) => {
     props.getSearchTerm(event.target.value);
   };
   const dispatch = useDispatch()
-  
+  console.log();
 const mutliDelete = () =>{
+  dispatch({ type: "SELECTTOGGLE",payload :false})
   const localStorageData =JSON.parse(localStorage.getItem("employee"))  
   const fetchdata = localStorageData === null ? [] : localStorageData
   const newArray = fetchdata.filter(ele =>{

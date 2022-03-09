@@ -3,7 +3,7 @@ import classes from './TableExpand.module.css'
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function TableExpand({obj,hideExpand,}) {
-
+console.log("expandTable.js");
   return  <tr>
   <td colSpan="6" className={classes.expandContainer}>
     <div className={classes.head}>

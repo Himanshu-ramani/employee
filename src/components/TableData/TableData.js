@@ -5,15 +5,12 @@ import TableRow from './TableRow';
 import {useDispatch} from "react-redux";
 
 function TableData(props) {
-
   const {data} = props
   const dispatch = useDispatch()
-
-  // const state = useSelector((state)=>state)  
   const [employee, setEmployee] = useState([]);
     useEffect(() => {
     setEmployee(data);
-  }, [,data]);
+  }, [data]);
   const [viewID, setviewID] = useState(null);
   const expandHnadler = (event, obj) => {
     setviewID(obj.id);
@@ -32,7 +29,6 @@ function TableData(props) {
   //delete function
     const deleteData = (event, curid) => {
   const localStorageData = JSON.parse(localStorage.getItem("employee"));
-  console.log(localStorageData);
         const newArray = localStorageData.filter((elem) => {
           return elem.id !== curid;
         });
@@ -56,7 +52,7 @@ function TableData(props) {
     setEmployee(checkArray)
     dispatch({ type: 'CHECK', payload: employee  })
   }
-// console.log("table-Data");
+
   return(<Fragment>
     {employee.map(obj =><Fragment key={obj.id} >
     <TableRow obj={obj} expandHnadler={expandHnadler} deleteData={deleteData} updateFormHandler={updateFormHandler} checkedHandler={checkedHandler} />
