@@ -1,0 +1,75 @@
+import React from "react";
+import "./Pagination.css";
+const Pagination = ({
+  postPerPage,
+  totalPosts,
+  paginate,
+  perPage,
+  currentPage,
+}) => {
+  const pageNumber = [];
+  for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
+    pageNumber.push(i);
+  }
+  const setPostPerPage = (event) => {
+    perPage(event.target.value);
+  };
+  return (
+    <tr>
+      <td colSpan="7" className="pagination_td">
+        <nav className="pagination">
+          <ul>
+            <li>
+              <button className="shift_Button" onClick={() => paginate(1)}> |&#60;</button>
+            </li>
+            {currentPage === 1 ? (
+              <></>
+            ) : (
+              <li>
+                <button onClick={() => paginate(currentPage-- - 1)}>
+                  {" "}
+                  &#60;
+                </button>
+              </li>
+            )}
+            {pageNumber.map((number) => (
+              <li key={number}>
+                {<button onClick={() => paginate(number)}>{number}</button>}
+              </li>
+            ))}
+            {currentPage === pageNumber.length ? (
+              <></>
+            ) : (
+              <li>
+                <button onClick={() => paginate(currentPage++ + 1)}>
+                  {" "}
+                  &#62;
+                </button>
+              </li>
+            )}
+            {currentPage === pageNumber.length ? (
+              <></>
+            ) : (
+              <li>
+                <button onClick={() => paginate(pageNumber.length)}>
+                  last
+                </button>
+              </li>
+            )}
+          </ul>
+          <div>
+            Show &nbsp;
+            <select name="cars" id="cars" onChange={setPostPerPage}>
+              <option value="5">5 Row</option>
+              <option value="10">10 Row</option>
+              <option value="15">15 Row</option>
+              <option value="20">20 Row</option>
+            </select>
+          </div>
+        </nav>
+      </td>
+    </tr>
+  );
+};
+
+export default Pagination;

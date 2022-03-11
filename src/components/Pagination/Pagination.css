@@ -1,0 +1,15 @@
+.pagination{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.pagination ul{
+    display: flex;
+    list-style: none;
+}
+.pagination ul li {
+    margin: 4px;
+}
+.pagination_td{
+    padding: 0 !important;
+}

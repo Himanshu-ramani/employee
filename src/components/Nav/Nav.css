@@ -16,7 +16,27 @@
     outline: 0;
     border: 0;
     border-bottom: 1px solid black;
+    width: 200px;
 }
+.delete_nav{
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 23px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.356);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.delete_nav li {
+    list-style: none;
+    margin-right: 30px;
+}
+.delete_nav p{
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+
 @media screen and (max-width: 600px) {
     .nav{
         padding: 10px;

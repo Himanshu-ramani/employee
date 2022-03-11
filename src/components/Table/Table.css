@@ -41,6 +41,7 @@
 .number , .address{
   display: none;
 }
+
   @media screen and (max-width: 600px) {
     .resposive_table {
         display: inline;

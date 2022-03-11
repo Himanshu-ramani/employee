@@ -9,8 +9,6 @@ export const SearchTerm = createContext()
 function App() {
 
   const [showFrom , SetShowFrom] = useState(false)
-
-
 const showFormHandler=() =>{
   SetShowFrom(pre =>!pre)
 }
@@ -19,7 +17,6 @@ const showFormHandler=() =>{
 const [searchTerm ,setSearchTerm] = useState("")
   const getSearchTerm = (search) => {
     setSearchTerm(search);
-
   }
   return (<div>
     <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />
