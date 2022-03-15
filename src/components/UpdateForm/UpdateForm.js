@@ -5,7 +5,7 @@ import Button from "../../UI/Button";
 import { useDispatch } from "react-redux";
 const UpdateForm = ({ closeUpdateForm, obj }) => {
   const fetchdata = JSON.parse(localStorage.getItem("employee"));
-  let employee = fetchdata === null ? [] : fetchdata;
+  const employee = fetchdata === null ? [] : fetchdata;
   const dispatch = useDispatch();
   const [isValue, setIsValue] = useState({
     firstName: obj.firstName,
@@ -27,49 +27,71 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
   console.log(isValue.firstName);
   const firstNameChangeHandler = (e) => {
     // console.log(e.target.value);
-    if (e.target.value.trim() !== '') {
+    if (e.target.value.trim() === '') {
      setIsValid({...isVaild ,firstNameHasError :true})
+    }else{
+      setIsValid({...isVaild ,firstNameHasError :false})
     }
     setIsValue({ ...isValue, firstName: e.target.value });
   };
   const lastNameChangeHandler = (e) => {
     if (e.target.value.trim() === '') {
       setIsValid({...isVaild ,lastNameHasError :true})
-     }
+     }else{
+      setIsValid({...isVaild ,lastNameHasError :false})
+    }
     setIsValue({ ...isValue, lastName: e.target.value });
   };
   const ageChangeHandler = (e) => {
     if (e.target.value.trim() === '') {
       setIsValid({...isVaild ,ageHasError :true})
-     }
+     }else{
+      setIsValid({...isVaild ,ageHasError :false})
+    }
     setIsValue({ ...isValue, age: e.target.value });
   };
   const numberChangeHandler = (e) => {
     if (e.target.value.length !== 10) {
       setIsValid({...isVaild ,numberHasError :true})
-     }
+     }else{
+      setIsValid({...isVaild ,numberHasError :false})
+    }
     setIsValue({ ...isValue, number: e.target.value });
   };
   const emailChangeHandler = (e) => {
     if (e.target.value.trim() === '') {
       setIsValid({...isVaild ,emailHasError :true})
-     }
+     }else{
+      setIsValid({...isVaild ,emailHasError :false})
+    }
     setIsValue({ ...isValue, email: e.target.value });
   };
   const addressChangeHandler = (e) => {
     if (e.target.value.trim() === '') {
       setIsValid({...isVaild ,addressHasError :true})
-     }
+     }else{
+      setIsValid({...isVaild ,firstNameHasError :false})
+    }
     setIsValue({ ...isValue, address: e.target.value });
   };
-
+  const [reEntry, setReEntry] = useState({numberReEnter : false,
+    emailReEnter : false})
   const submitHandler = (event) => {
     event.preventDefault();
-// console.log(Object.values(isVaild) =[false,false,false,false,false,false]);
-    if (isVaild.firstNameHasError === true && isVaild.lastNameHasError === true &&isVaild.ageHasError === true && isVaild.numberHasError === true && isVaild.emailHasError === true && isVaild.addressHasError === true) {
+    if (isVaild.firstNameHasError === true || isVaild.lastNameHasError === true ||isVaild.ageHasError === true || isVaild.numberHasError === true || isVaild.emailHasError === true || isVaild.addressHasError === true) {
       return
     }
-
+    const numberArray = employee.map(employe => (employe.number))
+    const emailArray = employee.map(employe => (employe.email))
+    if (numberArray.includes(isValue.number) === true ) {
+      setReEntry({...reEntry , numberReEnter:true})
+      return
+    }else{
+    setReEntry({...reEntry , numberReEnter:false})}
+    if ( emailArray.includes(isValue.email) === true  ) {
+      setReEntry({...reEntry , emailReEnter:true})
+      return
+    }
 
 
     const newDataArray = employee.map(

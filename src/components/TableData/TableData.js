@@ -38,10 +38,9 @@ function TableData() {
       }
       return ele;
     });
-
     localStorage.setItem("employee", JSON.stringify(checkArray));
     dispatch({ type: "CHECK", payload: checkArray });
-    setEmployee()
+    
   };
   //search
   const searchTerm =useContext(SearchTerm)
@@ -92,19 +91,18 @@ function TableData() {
 
  
  
-  //Select all
-  // useEffect(() => {
-  //   const selcted = displayEmployee.map((ele) => {
-  //     return { ...ele, select: state.selectToggle };
-  //   });
-  //   const newDataArray = state.gobalSateEmployee.map(
-  //     (obj) => selcted.find((o) => o.id === obj.id) || obj
-  //   );
-  //   localStorage.setItem("employee", JSON.stringify(newDataArray));
-  //   dispatch({ type: "CHECK", payload: newDataArray });
-  //   setDisplayEmployee(selcted)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [state.selectToggle])
+  // Select all
+  useEffect(() => {
+    const selcted = currentPosts.map((ele) => {
+      return { ...ele, select: state.selectToggle };
+    });
+    const newDataArray = state.gobalSateEmployee.map(
+      (obj) => selcted.find((o) => o.id === obj.id) || obj
+    );
+    localStorage.setItem("employee", JSON.stringify(newDataArray));
+    dispatch({ type: "CHECK", payload: newDataArray });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.selectToggle,])
 
 
   

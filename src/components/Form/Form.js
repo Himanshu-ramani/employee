@@ -1,5 +1,5 @@
 import useInput from "../../hook/input_hook";
-import React from "react";
+import React,{useState} from "react";
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
 import "./Form.css";
@@ -71,7 +71,8 @@ const Form = (props) => {
   }
 
   const update =[...employee]
- 
+ const [reEntry, setReEntry] = useState({numberReEnter : false,
+emailReEnter : false})
   const dispatch = useDispatch();
   const submitHandler = (event) => {
     event.preventDefault();
@@ -91,9 +92,19 @@ const Form = (props) => {
     };
     const numberArray = update.map(employe => (employe.number))
     const emailArray = update.map(employe => (employe.email))
-    if (numberArray.includes(resdata.number) || emailArray.includes(resdata.email)  ) {
+    if (numberArray.includes(resdata.number) ) {
+      setReEntry({...reEntry , numberReEnter:true})
       return
     }
+    setReEntry({...reEntry , numberReEnter:false})
+    if ( emailArray.includes(resdata.email)  ) {
+      setReEntry({...reEntry , emailReEnter:true})
+      console.log(reEntry);
+      return
+    }
+    console.log(update);
+    setReEntry({...reEntry , emailReEnter:false})
+    
     update.unshift(resdata);
     localStorage.setItem("employee", JSON.stringify(update));
     dispatch({ type: "ADD", payload: update });
@@ -194,7 +205,8 @@ const Form = (props) => {
             <p className="error-text"> Please enter Address </p>
           )}
         </div>
-            {true && <p className="error-text"> employee already exist </p>}
+            {reEntry.numberReEnter && <p className="error-text"> Phone number already exist </p>}
+            {reEntry.emailReEnter && <p className="error-text">Email already exist </p>}
         <div>
 
           <div></div>
