@@ -14,27 +14,30 @@ const Pagination = ({
   const setPostPerPage = (event) => {
     perPage(event.target.value);
   };
+ 
   return (
     <tr>
       <td colSpan="7" className="pagination_td">
         <nav className="pagination">
           <ul>
-            <li>
-              <button className="shift_Button" onClick={() => paginate(1)}> |&#60;</button>
-            </li>
+          {currentPage === 1 ? (
+              <></>
+            ) : <li>
+              <button className="shift_Button" onClick={() => paginate(1)}>  &laquo;</button>
+            </li>}
             {currentPage === 1 ? (
               <></>
             ) : (
               <li>
                 <button onClick={() => paginate(currentPage-- - 1)}>
                   {" "}
-                  &#60;
+                 Pervious
                 </button>
               </li>
             )}
             {pageNumber.map((number) => (
               <li key={number}>
-                {<button onClick={() => paginate(number)}>{number}</button>}
+                {<button onClick={() => paginate(number)} className={currentPage === number ? "pagination_active" : ""}>{number}</button>}
               </li>
             ))}
             {currentPage === pageNumber.length ? (
@@ -43,7 +46,7 @@ const Pagination = ({
               <li>
                 <button onClick={() => paginate(currentPage++ + 1)}>
                   {" "}
-                  &#62;
+                 Next
                 </button>
               </li>
             )}
@@ -52,7 +55,7 @@ const Pagination = ({
             ) : (
               <li>
                 <button onClick={() => paginate(pageNumber.length)}>
-                  last
+                &raquo;
                 </button>
               </li>
             )}

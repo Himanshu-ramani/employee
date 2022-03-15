@@ -4,7 +4,7 @@ import classes from './TableExpand.module.css'
 function TableExpand({obj}) {
 
   return  <tr>
-  <td colSpan="6" className={classes.expandContainer}>
+  <td colSpan="7" className={classes.expandContainer}>
     <div className={classes.head}>
       <h2>
    {obj.firstName} {obj.lastName}

@@ -1,21 +1,22 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext} from "react";
 import TableExpand from "../TableExpand/TableExpand";
 import UpdateForm from "../UpdateForm/UpdateForm";
 import TableRow from "./TableRow";
-import { useDispatch,} from "react-redux";
-import { SearchTerm } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchTerm,  } from "../../App";
 import Pagination from "../Pagination/Pagination";
-function TableData(props) {
-  const { data } = props;
+function TableData() {
+  const state = useSelector((state) => state);
+
+
   const dispatch = useDispatch();
-  const [employee, setEmployee] = useState([]);
-  useEffect(() => {
-    setEmployee(data);
-  }, [data]);
   const [viewID, setviewID] = useState(null);
+  const [employee ,setEmployee] = useState(state.gobalSateEmployee)
+  //expand data
   const expandHnadler = (event, obj) => {
     setviewID(obj.id);
   };
+  //update form handleing
   const [updateFormState, setUpdateFormState] = useState(null);
   const updateFormHandler = (event, objId) => {
     setUpdateFormState(objId);
@@ -31,59 +32,82 @@ function TableData(props) {
   ///multiple Select
   const checkedHandler = (event, data) => {
     const { checked } = event.target;
-    const newData = JSON.parse(localStorage.getItem("employee"));
-    const employeeData = newData === null ? [] : newData;
-    const checkArray = employeeData.map((ele) => {
+    const checkArray = state.gobalSateEmployee.map((ele) => {
       if (ele.id === data.id) {
         return { ...ele, select: checked };
       }
       return ele;
     });
-    
-    localStorage.setItem("employee", JSON.stringify(checkArray));
-    setEmployee(checkArray);
-    dispatch({ type: "CHECK", payload: employee });
-  };
-  //Search term
-  const searchTerm = useContext(SearchTerm);
 
+    localStorage.setItem("employee", JSON.stringify(checkArray));
+    dispatch({ type: "CHECK", payload: checkArray });
+    setEmployee()
+  };
+  //search
+  const searchTerm =useContext(SearchTerm)
   useEffect(() => {
-    if (searchTerm !== "") {
-      const newData = employee.filter((employe) => {
+    if ( searchTerm!== "") {
+      const newData = state.gobalSateEmployee.filter((employe) => {
         return Object.values(employe)
           .join("")
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
       });
-      console.log(newData);
       setEmployee(newData);
-    } else {
-      setEmployee(data);
+    } else{
+      setEmployee(state.gobalSateEmployee);
     }
-  }, [searchTerm]);
+  }, [searchTerm,state.gobalSateEmployee])
+  
+
   //pagination
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setPostPerPage] = useState(5)
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
 
   // Get Current posts
   const indexOfLastPosts = currentPage * postPerPage;
-  const  indexOfFirstPost = indexOfLastPosts -postPerPage;
-  const currentPosts = employee.slice(indexOfFirstPost , indexOfLastPosts)
-
-
+  const indexOfFirstPost = indexOfLastPosts - postPerPage;
+  const currentPosts = employee.slice(
+    indexOfFirstPost,
+    indexOfLastPosts
+  );
+  // const [displayEmployee , setDisplayEmployee] = useState(currentPosts)
   //change Page
-  const paginate =(pageNumber) =>{
+  const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
-  }
+  };
 
-const perPage =(post) =>{
-  setPostPerPage(post)
-}
+  const perPage = (post) => {
+    setPostPerPage(post);
+  };
+  useEffect(() => {
+    const deleteShift =currentPosts.length === 0 ?currentPage -1 :currentPage
+    setCurrentPage(deleteShift);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.gobalSateEmployee])
+  
+  const newData = JSON.parse(localStorage.getItem("employee"));
+  const employeeData = newData === null ? [] : newData;
 
-const newData = JSON.parse(localStorage.getItem("employee"));
-const employeeData = newData === null ? [] : newData;
+ 
+ 
+  //Select all
+  // useEffect(() => {
+  //   const selcted = displayEmployee.map((ele) => {
+  //     return { ...ele, select: state.selectToggle };
+  //   });
+  //   const newDataArray = state.gobalSateEmployee.map(
+  //     (obj) => selcted.find((o) => o.id === obj.id) || obj
+  //   );
+  //   localStorage.setItem("employee", JSON.stringify(newDataArray));
+  //   dispatch({ type: "CHECK", payload: newDataArray });
+  //   setDisplayEmployee(selcted)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [state.selectToggle])
+
+
+  
   return (
     <Fragment>
       {currentPosts.map((obj) => (
@@ -93,7 +117,7 @@ const employeeData = newData === null ? [] : newData;
             expandHnadler={expandHnadler}
             updateFormHandler={updateFormHandler}
             checkedHandler={checkedHandler}
-            hideExpand ={hideExpand}
+            hideExpand={hideExpand}
           />
           {viewID === obj.id && (
             <TableExpand obj={obj} hideExpand={hideExpand} />
@@ -103,7 +127,17 @@ const employeeData = newData === null ? [] : newData;
           )}
         </Fragment>
       ))}
-      {employeeData.length === 0 ? <></> : <Pagination postPerPage={postPerPage} totalPosts={employee.length} paginate={paginate} perPage={perPage} currentPage={currentPage} />}
+      {employeeData.length === 0 ? (
+        <></>
+      ) : (
+        <Pagination
+          postPerPage={postPerPage}
+          totalPosts={employeeData.length}
+          paginate={paginate}
+          perPage={perPage}
+          currentPage={currentPage}
+        />
+      )}
     </Fragment>
   );
 }

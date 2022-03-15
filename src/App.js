@@ -6,18 +6,19 @@ import Table from './components/Table/Table';
 import {createContext} from 'react';
 export const FormState = createContext()
 export const SearchTerm = createContext()
-function App() {
 
-  const [showFrom , SetShowFrom] = useState(false)
+
+function App() {
+const [showFrom , SetShowFrom] = useState(false)
 const showFormHandler=() =>{
   SetShowFrom(pre =>!pre)
 }
 //serach function
-
 const [searchTerm ,setSearchTerm] = useState("")
   const getSearchTerm = (search) => {
     setSearchTerm(search);
   }
+
   return (<div>
     <Nav showFormHandler={showFormHandler}  getSearchTerm={getSearchTerm} />
    {showFrom && <Form showFormHandler={showFormHandler} />}

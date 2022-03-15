@@ -1,5 +1,7 @@
 import { createStore,combineReducers } from "redux";
-const gobalSateEmployee = (state = [],action) =>{
+const localStorageData = JSON.parse(localStorage.getItem("employee"));
+const instate = localStorageData === null ? [] : localStorageData;
+const gobalSateEmployee = (state = instate,action) =>{
     if (action.type === 'DELETE') {
         return(state = action.payload)
     }
@@ -15,6 +17,9 @@ const gobalSateEmployee = (state = [],action) =>{
     if (action.type === 'SELECTALL') {
         return(state = action.payload)
     }
+    if (action.type ==='SORT') {
+        return(state = action.payload)
+    }
     return state
 }
 
@@ -24,6 +29,7 @@ const selectToggle = (state = false,action) =>{
     }
     return state
 }
+
 const store = createStore(combineReducers({gobalSateEmployee,selectToggle}))
 
 export default store
