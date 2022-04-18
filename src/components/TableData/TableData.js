@@ -23,11 +23,15 @@ function TableData() {
     setviewID(null);
   };
   const closeUpdateForm = () => {
+   
     setUpdateFormState(null);
   };
   const hideExpand = () => {
     setviewID(null);
   };
+  
+  
+  
 
   ///multiple Select
   const checkedHandler = (event, data) => {
@@ -57,7 +61,6 @@ function TableData() {
       setEmployee(state.gobalSateEmployee);
     }
   }, [searchTerm,state.gobalSateEmployee])
-  
 
   //pagination
 
@@ -67,11 +70,14 @@ function TableData() {
   // Get Current posts
   const indexOfLastPosts = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPosts - postPerPage;
-  const currentPosts = employee.slice(
-    indexOfFirstPost,
-    indexOfLastPosts
-  );
-  // const [displayEmployee , setDisplayEmployee] = useState(currentPosts)
+  
+ 
+    const currentEmployees = employee.slice(
+      indexOfFirstPost,
+      indexOfLastPosts
+    );
+  
+  
   //change Page
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -81,19 +87,23 @@ function TableData() {
     setPostPerPage(post);
   };
   useEffect(() => {
-    const deleteShift =currentPosts.length === 0 ?currentPage -1 :currentPage
-    setCurrentPage(deleteShift);
+    const deleteShift =currentEmployees.length === 0 ?currentPage -1 :currentPage
+
+    // console.log(deleteShift);
+    setCurrentPage(deleteShift <= 0 ? 1 : deleteShift);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.gobalSateEmployee])
   
   const newData = JSON.parse(localStorage.getItem("employee"));
   const employeeData = newData === null ? [] : newData;
 
- 
+ const getCurrentPage =(val) =>{
+  setCurrentPage(val)
+ }
  
   // Select all
   useEffect(() => {
-    const selcted = currentPosts.map((ele) => {
+    const selcted = currentEmployees.map((ele) => {
       return { ...ele, select: state.selectToggle };
     });
     const newDataArray = state.gobalSateEmployee.map(
@@ -108,7 +118,7 @@ function TableData() {
   
   return (
     <Fragment>
-      {currentPosts.map((obj) => (
+      {currentEmployees.map((obj) => (
         <Fragment key={obj.id}>
           <TableRow
             obj={obj}
@@ -134,6 +144,7 @@ function TableData() {
           paginate={paginate}
           perPage={perPage}
           currentPage={currentPage}
+          getCurrentPage ={getCurrentPage}
         />
       )}
     </Fragment>

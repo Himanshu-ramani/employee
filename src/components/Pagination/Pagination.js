@@ -1,4 +1,6 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { useSelector } from "react-redux";
+
 import "./Pagination.css";
 const Pagination = ({
   postPerPage,
@@ -6,8 +8,16 @@ const Pagination = ({
   paginate,
   perPage,
   currentPage,
+  getCurrentPage
 }) => {
+  const state = useSelector((state) => state);
+
   const pageNumber = [];
+useEffect(() => {
+  getCurrentPage(pre => pageNumber.includes(pre)? pre :pageNumber.slice(-1).pop() )
+}, [pageNumber])
+
+
   for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
     pageNumber.push(i);
   }
@@ -31,7 +41,7 @@ const Pagination = ({
               <li>
                 <button onClick={() => paginate(currentPage-- - 1)}>
                   {" "}
-                 Pervious
+                 Previous
                 </button>
               </li>
             )}

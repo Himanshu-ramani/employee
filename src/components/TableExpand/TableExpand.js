@@ -12,9 +12,9 @@ function TableExpand({obj}) {
     </div>
     <div className={classes.expand}>
       <p className={classes.label}>FIRST NAME</p>
-      <p>{obj.firstName}</p>
+      <p className={classes.employeename}>{obj.firstName}</p>
       <p className={classes.label}>LAST NAME</p>
-      <p>{obj.lastName}</p>
+      <p className={classes.employeename}>{obj.lastName}</p>
       <p className={classes.label}>DATE OF BIRTH</p>
       <p>{obj.age}</p>
       <p className={classes.label}>NUMBER</p> <p>{obj.number}</p>

@@ -24,7 +24,7 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
     emailHasError:false,
     addressHasError:false,
   })
-  console.log(isValue.firstName);
+
   const firstNameChangeHandler = (e) => {
     // console.log(e.target.value);
     if (e.target.value.trim() === '') {
@@ -67,6 +67,7 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
     setIsValue({ ...isValue, email: e.target.value });
   };
   const addressChangeHandler = (e) => {
+
     if (e.target.value.trim() === '') {
       setIsValid({...isVaild ,addressHasError :true})
      }else{
@@ -74,31 +75,30 @@ const UpdateForm = ({ closeUpdateForm, obj }) => {
     }
     setIsValue({ ...isValue, address: e.target.value });
   };
-  const [reEntry, setReEntry] = useState({numberReEnter : false,
-    emailReEnter : false})
+ 
+    
   const submitHandler = (event) => {
     event.preventDefault();
     if (isVaild.firstNameHasError === true || isVaild.lastNameHasError === true ||isVaild.ageHasError === true || isVaild.numberHasError === true || isVaild.emailHasError === true || isVaild.addressHasError === true) {
       return
     }
-    const numberArray = employee.map(employe => (employe.number))
-    const emailArray = employee.map(employe => (employe.email))
-    if (numberArray.includes(isValue.number) === true ) {
-      setReEntry({...reEntry , numberReEnter:true})
+    if(employee.filter(cur => cur.number === isValue.number && cur.number !== obj.number ).length > 0 || employee.filter(cur => cur.email === isValue.email && cur.email !== obj.email).length > 0 ){
       return
-    }else{
-    setReEntry({...reEntry , numberReEnter:false})}
-    if ( emailArray.includes(isValue.email) === true  ) {
-      setReEntry({...reEntry , emailReEnter:true})
-      return
-    }
-
-
+    }  
     const newDataArray = employee.map(
       (obj) => [isValue].find((o) => o.id === obj.id) || obj
     );
     localStorage.setItem("employee", JSON.stringify(newDataArray));
     dispatch({ type: "EDIT", payload: newDataArray });
+     setIsValue({
+      firstName:"",
+      lastName: "",
+      age: "",
+      number: "",
+      email: "",
+      address: "",
+      id: "",
+    })
     closeUpdateForm();
   };
   const firstnameClasses = isVaild.firstNameHasError
@@ -163,8 +163,9 @@ const addressClasses = isVaild.addressHasError
               />
             </div>
             {isVaild.numberHasError && (
-            <p className="error-text"> Please enter valid First Name </p>
+            <p className="error-text"> Please enter valid Phone number </p>
           )}
+          {employee.filter(cur => cur.number === isValue.number &&  cur.number !== obj.number).length > 0 ? <p className="error-text"> Phone number already exist </p> : <></>}
             <div className={emailClasses}>
               <Input
                 type="email"
@@ -174,8 +175,9 @@ const addressClasses = isVaild.addressHasError
               />
             </div>
             {isVaild.emailHasError && (
-            <p className="error-text"> Please enter valid First Name </p>
+            <p className="error-text"> Please enter valid Email </p>
           )}
+          {employee.filter(cur => cur.email === isValue.email &&  cur.email !== obj.email).length > 0 ? <p className="error-text"> Email already exist </p> : <></>}
             <div className={addressClasses}>
               <textarea
                 placeholder="Address..."
@@ -184,8 +186,9 @@ const addressClasses = isVaild.addressHasError
               ></textarea>
             </div>
             {isVaild.addressHasError && (
-            <p className="error-text"> Please enter valid First Name </p>
-          )}
+            <p className="error-text"> Please enter valid Address </p>
+          )}  
+           
             <div>
               <div></div>
               <div className="button_div">
